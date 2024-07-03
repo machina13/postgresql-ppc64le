@@ -4,6 +4,7 @@ import platform
 import socket
 import os
 from dotenv import load_dotenv
+import re
 
 # Cargar variables de entorno desde el archivo .env
 load_dotenv()
@@ -19,6 +20,11 @@ db_config = {
     'port': os.getenv('DB_PORT')
 }
 
+def extract_word_before_pattern(text, pattern):
+    match = re.search(r'(\w+)-' + pattern, text)
+    if match:
+        return match.group(1)
+    return None
 def update_db_config(host_ip):
     global db_config
     db_config['host'] = host_ip
@@ -38,8 +44,9 @@ def get_db_info():
     version_info = db_info[0]
     host_ip = db_info[3]
 
-    architecture = 'ppc' if 'IBM' in version_info or 'Power' in version_info else 'x86'
-
+#    architecture = 'ppc64le' if 'IBM' in version_info or 'Power' in version_info else 'x86'
+    pattern = 'redhat-linux-gnu'
+    architecture = extract_word_before_pattern(version_info,pattern)
     system_info = {
         'hostname': db_info[1],  # Current database as hostname
         'ip_address': host_ip,
