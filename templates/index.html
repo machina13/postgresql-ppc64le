@@ -28,12 +28,8 @@
         <div class="card my-4">
             <h5 class="card-header">Información del Servidor</h5>
             <div class="card-body">
-                <p><strong>Hostname:</strong> {{ db_info.hostname }}</p>
                 <p><strong>IP Address:</strong> {{ db_info.ip_address }}</p>
-                <p><strong>Sistema Operativo:</strong> {{ db_info.os }}</p>
                 <p><strong>Versión del Sistema Operativo:</strong> {{ db_info.os_version }}</p>
-                <p><strong>CPU:</strong> {{ db_info.cpu }}</p>
-                <p><strong>Arquitectura de CPU:</strong> {{ db_info.cpu_architecture }}</p>
             </div>
         </div>
         {% endif %}
