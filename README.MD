@@ -15,8 +15,7 @@ Clona este repositorio en tu máquina local:
 ```bash
 git clone https://github.com/machina13/postgresql-ppc64le
 cd postgresql-ppc64le
-
-## Instrucciones de Uso
+```
 
 ### Paso 2: Configurar Variables de Entorno
 
