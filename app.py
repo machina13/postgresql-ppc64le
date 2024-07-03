@@ -66,7 +66,7 @@ def index():
         update_db_config(host_ip)  # Actualizar la configuración de la base de datos
         db_info = get_db_info()
         return render_template('index.html', db_info=db_info)
-    
+
     return render_template('index.html')
 
 @app.route('/consultar', methods=['POST'])
@@ -79,9 +79,9 @@ def consultar():
     result = cur.fetchall()
     cur.close()
     conn.close()
-    
+
     db_info = get_db_info()  # Obtener la información actualizada del servidor
-    
+
     return render_template('index.html', query=query, result=result, columns=columns, db_info=db_info)
 
 @app.route('/agregar', methods=['POST'])
@@ -106,8 +106,8 @@ def agregar():
     conn.close()
 
     db_info = get_db_info()  # Obtener la información actualizada del servidor
-    
+
     return render_template('index.html', db_info=db_info)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port='80')
+    app.run(debug=True, host='0.0.0.0', port='5000')
