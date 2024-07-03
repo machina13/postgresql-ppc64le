@@ -1,92 +1,108 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Consultas PostgreSQL</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <title>Gestión de Direcciones</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <style>
-        .highlight {
-            font-weight: bold;
-            color: #007bff; /* Color azul Bootstrap */
-        }
+        /* Añade estilos personalizados si es necesario */
     </style>
 </head>
 <body>
-<div class="container">
-    <h1 class="mt-5">Consultas PostgreSQL</h1>
-    
-    <div class="card mt-4">
-        <div class="card-body">
-            <h4 class="card-title highlight">Información del Servidor</h4>
-            <p><strong>IP del servidor:</strong> {{ db_info['ip_address'] }}</p>
-            <p><strong>Sistema Operativo:</strong> {{ db_info['os'] }}</p>
-            <p><strong>CPU:</strong> {{ db_info['cpu'] }}</p>
+    <div class="container">
+        <h1 class="mt-4">Gestión de Direcciones</h1>
+        
+        <!-- Formulario para ingresar la dirección IP del servidor de base de datos -->
+        <form action="/" method="POST" class="mt-4">
+            <div class="form-group">
+                <label for="db_host">Dirección IP del Servidor de Base de Datos:</label>
+                <input type="text" id="db_host" name="db_host" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Actualizar y Mostrar Información del Servidor</button>
+        </form>
+        
+        <hr class="my-4">
+        
+        {% if db_info %}
+        <!-- Información del Servidor -->
+        <div class="card my-4">
+            <h5 class="card-header">Información del Servidor</h5>
+            <div class="card-body">
+                <p><strong>Hostname:</strong> {{ db_info.hostname }}</p>
+                <p><strong>IP Address:</strong> {{ db_info.ip_address }}</p>
+                <p><strong>Sistema Operativo:</strong> {{ db_info.os }}</p>
+                <p><strong>Versión del Sistema Operativo:</strong> {{ db_info.os_version }}</p>
+                <p><strong>CPU:</strong> {{ db_info.cpu }}</p>
+                <p><strong>Arquitectura de CPU:</strong> {{ db_info.cpu_architecture }}</p>
+            </div>
         </div>
-    </div>
-
-    <div class="card mt-4">
-        <div class="card-body">
-            <h4 class="card-title highlight">Ingresar un Registro</h4>
-            <form method="post" action="/agregar">
-                <div class="form-group">
-                    <label for="address">Dirección:</label>
-                    <input type="text" class="form-control" id="address" name="address" required>
-                </div>
-                <div class="form-group">
-                    <label for="address2">Dirección 2:</label>
-                    <input type="text" class="form-control" id="address2" name="address2">
-                </div>
-                <div class="form-group">
-                    <label for="district">Distrito:</label>
-                    <input type="text" class="form-control" id="district" name="district" required>
-                </div>
-                <div class="form-group">
-                    <label for="city_id">ID de Ciudad:</label>
-                    <input type="number" class="form-control" id="city_id" name="city_id" required>
-                </div>
-                <div class="form-group">
-                    <label for="postal_code">Código Postal:</label>
-                    <input type="text" class="form-control" id="postal_code" name="postal_code" required>
-                </div>
-                <div class="form-group">
-                    <label for="phone">Teléfono:</label>
-                    <input type="text" class="form-control" id="phone" name="phone" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Agregar Registro</button>
-            </form>
-        </div>
-    </div>
-    
-    <form method="post" action="/consultar" class="mt-4 mb-5">
-        <div class="form-group">
-            <label for="db_host">Dirección IP del Host de la Base de Datos para Consultar:</label>
-            <input type="text" class="form-control" id="db_host" name="db_host" required>
-        </div>
-        <button type="submit" class="btn btn-success">Consultar Direcciones</button>
-    </form>
-    
-    {% if query %}
-    <h2 class="mt-5">Resultados para: "{{ query }}"</h2>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                {% for col in columns %}
-                <th>{{ col }}</th>
+        {% endif %}
+        
+        <!-- Formulario para consultar direcciones -->
+        <form action="/consultar" method="POST">
+            <button type="submit" class="btn btn-success mb-4">Consultar Direcciones</button>
+        </form>
+        
+        <hr class="my-4">
+        
+        <!-- Formulario para agregar dirección -->
+        <form action="/agregar" method="POST">
+            <h3 class="mb-3">Agregar Dirección</h3>
+            <div class="form-group">
+                <label for="address">Dirección:</label>
+                <input type="text" id="address" name="address" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="address2">Dirección 2:</label>
+                <input type="text" id="address2" name="address2" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="district">Distrito:</label>
+                <input type="text" id="district" name="district" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="city_id">ID de Ciudad:</label>
+                <input type="text" id="city_id" name="city_id" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="postal_code">Código Postal:</label>
+                <input type="text" id="postal_code" name="postal_code" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Teléfono:</label>
+                <input type="text" id="phone" name="phone" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Agregar Dirección</button>
+        </form>
+        
+        <!-- Resultados de la consulta -->
+        {% if query %}
+        <h3 class="mt-4">Resultados de la Consulta</h3>
+        <table class="table table-bordered mt-3">
+            <thead class="thead-dark">
+                <tr>
+                    {% for col in columns %}
+                    <th scope="col">{{ col }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in result %}
+                <tr>
+                    {% for col in row %}
+                    <td>{{ col }}</td>
+                    {% endfor %}
+                </tr>
                 {% endfor %}
-            </tr>
-        </thead>
-        <tbody>
-            {% for row in result %}
-            <tr>
-                {% for cell in row %}
-                <td>{{ cell }}</td>
-                {% endfor %}
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    {% endif %}
-</div>
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+    
+    <!-- Bootstrap JS y jQuery (opcional, dependiendo de las necesidades) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-Cr8HYpSiZkq4ZcJSU9uQzlGt1k7yMWAxZtFL6+WUZsxXlJlilLyrq+MOPBI0zQb8" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+pbFh65PY0j3E0Byh2FCtJfIM+DeVjWzn6H" crossorigin="anonymous"></script>
 </body>
 </html>
 
