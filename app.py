@@ -30,30 +30,27 @@ def get_db_connection():
 def get_db_info():
     conn = get_db_connection()
     cur = conn.cursor()
-    cur.execute("SELECT inet_server_addr(), version();")
-    result = cur.fetchone()
+    cur.execute("SELECT version(), current_database(), current_user, inet_server_addr(), inet_server_port();")
+    db_info = cur.fetchone()
     cur.close()
     conn.close()
 
-    host_ip = result[0]
-    version_info = result[1]
+    version_info = db_info[0]
+    host_ip = db_info[3]
 
-    if 'IBM' in version_info or 'Power' in version_info:
-        architecture = 'ppc'
-    else:
-        architecture = 'x86'
+    architecture = 'ppc' if 'IBM' in version_info or 'Power' in version_info else 'x86'
 
-    # Información adicional del sistema
     system_info = {
-        'hostname': socket.gethostname(),
+        'hostname': db_info[1],  # Current database as hostname
         'ip_address': host_ip,
-        'os': platform.system(),
-        'os_version': platform.version(),
-        'cpu': platform.processor(),
-        'cpu_architecture': platform.machine()
+        'os': version_info.split(' ')[0],  # Extract OS from version info
+        'os_version': version_info,
+        'cpu': 'Unknown',  # PostgreSQL does not provide CPU info directly
+        'cpu_architecture': architecture
     }
-    
+
     return system_info
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
