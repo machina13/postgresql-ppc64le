@@ -1,6 +1,6 @@
 # Utilizar una imagen base de Python
 FROM python:3.9-slim
-
+#prueba
 # Establecer el directorio de trabajo
 WORKDIR /app
 
