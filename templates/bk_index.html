@@ -31,6 +31,7 @@
                 <p><strong>IP Address:</strong> {{ db_info.ip_address }}</p>
                 <p><strong>Arquitectura:</strong> {{ db_info.cpu_architecture }}</p>
                 <p><strong>Detalle:</strong> {{ db_info.os_version }}</p>
+
             </div>
         </div>
         {% endif %}
@@ -43,40 +44,34 @@
         <hr class="my-4">
         
         <!-- Formulario para agregar dirección -->
-        <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Agregar Dirección
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <form action="/agregar" method="POST" class="px-4 py-3">
-                    <div class="form-group">
-                        <label for="address">Dirección:</label>
-                        <input type="text" id="address" name="address" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="address2">Dirección 2:</label>
-                        <input type="text" id="address2" name="address2" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="district">Distrito:</label>
-                        <input type="text" id="district" name="district" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="city_id">ID de Ciudad:</label>
-                        <input type="text" id="city_id" name="city_id" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="postal_code">Código Postal:</label>
-                        <input type="text" id="postal_code" name="postal_code" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Teléfono:</label>
-                        <input type="text" id="phone" name="phone" class="form-control" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Agregar</button>
-                </form>
+        <form action="/agregar" method="POST">
+            <h3 class="mb-3">Agregar Dirección</h3>
+            <div class="form-group">
+                <label for="address">Dirección:</label>
+                <input type="text" id="address" name="address" class="form-control" required>
             </div>
-        </div>
+            <div class="form-group">
+                <label for="address2">Dirección 2:</label>
+                <input type="text" id="address2" name="address2" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="district">Distrito:</label>
+                <input type="text" id="district" name="district" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="city_id">ID de Ciudad:</label>
+                <input type="text" id="city_id" name="city_id" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="postal_code">Código Postal:</label>
+                <input type="text" id="postal_code" name="postal_code" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Teléfono:</label>
+                <input type="text" id="phone" name="phone" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Agregar Dirección</button>
+        </form>
         
         <!-- Resultados de la consulta -->
         {% if query %}
