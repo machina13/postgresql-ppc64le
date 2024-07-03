@@ -1,0 +1,16 @@
+# Utiliza una imagen base de PostgreSQL
+FROM postgres:latest
+
+# Variables de entorno para configurar la base de datos
+ENV POSTGRES_DB=nombre_base_datos
+ENV POSTGRES_USER=usuario
+ENV POSTGRES_PASSWORD=password
+
+# Copia scripts SQL de inicialización (si es necesario)
+# COPY ./scripts/ /docker-entrypoint-initdb.d/
+
+# Puerto expuesto por PostgreSQL (opcional, dependiendo de tus necesidades)
+EXPOSE 5432
+
+# Comando para iniciar el servicio de PostgreSQL
+CMD ["postgres"]
