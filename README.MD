@@ -65,3 +65,68 @@ cd postgresql-ppc64le
 
     Donde `web` es el nombre que le diste a tu contenedor al ejecutarlo.
 
+
+
+    ## Instalación y Configuración de PostgreSQL en CentOS 9
+
+    ### Paso 1: Instalar PostgreSQL
+
+    ```sudo dnf install postgresql-server postgresql-contrib -y```
+
+    ### Paso 2: Modificar el archivo pg_hba.conf
+
+    ```sudo vi /var/lib/pgsql/data/pg_hba.conf```
+
+    Agregar la siguiente línea bajo ```IPv4 local connections:``` y comentar la línea anterior:
+
+    ```host    all             all             0.0.0.0/0            md5```
+
+    ```#host    all             all             127.0.0.1/32            ident```
+
+    ### Paso 3: Cambiar la contraseña del usuario postgres
+
+    ```sudo passwd postgres```
+
+    ### Paso 4: Reiniciar PostgreSQL
+
+    ```sudo systemctl restart postgresql```
+
+    ### Paso 5: Importar la base de datos dvdrental
+
+    1. Descarga el archivo dvdrental.tar.gz desde [aquí](https://www.postgresqltutorial.com/wp-content/uploads/2019/05/dvdrental.zip) y cópialo a tu servidor CentOS.
+
+    2. Descomprime el archivo:
+
+    ```tar -xvf dvdrental.tar.gz```
+
+    3. Ingresa a la consola de PostgreSQL como el usuario postgres:
+
+    ```sudo -i -u postgres```
+
+    4. Crea una nueva base de datos llamada dvdrental:
+
+    ```createdb dvdrental```
+
+    5. Restaura el archivo de respaldo dentro de la base de datos dvdrental:
+
+    ```pg_restore -U postgres -d dvdrental dvdrental.tar```
+
+    6. Sal de la consola de PostgreSQL:
+
+    ```\q```
+
+    ### Paso 6: Configurar Firewalld
+
+    ```sudo firewall-cmd --permanent --add-port=5432/tcp```
+
+    ```sudo firewall-cmd --reload```
+
+    ### Paso 7: Configurar SELinux
+
+    ```sudo setsebool -P httpd_can_network_connect_db 1```
+
+    ### Paso 8: Iniciar y habilitar PostgreSQL
+
+    ```sudo systemctl start postgresql```
+
+    ```sudo systemctl enable postgresql```
