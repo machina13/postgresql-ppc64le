@@ -79,9 +79,9 @@ cd postgresql-ppc64le
 
     Agregar la siguiente línea bajo ```IPv4 local connections:``` y comentar la línea anterior:
 
-    ```host    all             all             0.0.0.0/0            md5
+    ```host    all             all             0.0.0.0/0            md5```
 
-    #host    all             all             127.0.0.1/32            ident```
+    ```#host    all             all             127.0.0.1/32            ident```
 
     ### Paso 3: Cambiar la contraseña del usuario postgres
 
