@@ -71,7 +71,7 @@ def index():
 
 @app.route('/consultar', methods=['POST'])
 def consultar():
-    query = "SELECT * FROM address ORDER BY address_id DESC limit 10"
+    query = "SELECT * FROM address ORDER BY address_id DESC "
     conn = get_db_connection()
     cur = conn.cursor()
     cur.execute(query)
