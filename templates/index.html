@@ -11,18 +11,18 @@
 <body>
     <div class="container">
         <h1 class="mt-4">Gestión de Direcciones</h1>
-        
+
         <!-- Formulario para ingresar la dirección IP del servidor de base de datos -->
         <form action="/" method="POST" class="mt-4">
             <div class="form-group">
                 <label for="db_host">Dirección IP del Servidor de Base de Datos:</label>
                 <input type="text" id="db_host" name="db_host" class="form-control" required>
             </div>
-            <button type="submit" class="btn btn-primary">Actualizar y Mostrar Información del Servidor</button>
+            <button type="submit" class="btn btn-primary">Conectar al Servidor</button>
         </form>
-        
+
         <hr class="my-4">
-        
+
         {% if db_info %}
         <!-- Información del Servidor -->
         <div class="card my-4">
@@ -34,14 +34,14 @@
             </div>
         </div>
         {% endif %}
-        
+
         <!-- Formulario para consultar direcciones -->
         <form action="/consultar" method="POST">
-            <button type="submit" class="btn btn-success mb-4">Consultar Direcciones</button>
+            <button type="submit" class="btn btn-success mb-4">Consultar</button>
         </form>
-        
+
         <hr class="my-4">
-        
+
         <!-- Formulario para agregar dirección -->
         <div class="dropdown">
             <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -77,7 +77,7 @@
                 </form>
             </div>
         </div>
-        
+
         <!-- Resultados de la consulta -->
         {% if query %}
         <h3 class="mt-4">Resultados de la Consulta</h3>
@@ -101,11 +101,10 @@
         </table>
         {% endif %}
     </div>
-    
+
     <!-- Bootstrap JS y jQuery (opcional, dependiendo de las necesidades) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-Cr8HYpSiZkq4ZcJSU9uQzlGt1k7yMWAxZtFL6+WUZsxXlJlilLyrq+MOPBI0zQb8" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+pbFh65PY0j3E0Byh2FCtJfIM+DeVjWzn6H" crossorigin="anonymous"></script>
 </body>
 </html>
-
