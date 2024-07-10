@@ -15,9 +15,6 @@ Usage Instructions
 
 Clone this repository to your local machine:
 
-bash
-
-Copy code
 
 `git clone https://github.com/machina13/postgresql-ppc64le
 cd postgresql-ppc64le`
@@ -26,9 +23,6 @@ cd postgresql-ppc64le`
 
 1.  Create a `.env` file in the root of the project with your PostgreSQL database configuration. Replace the example values with those appropriate for your environment:
 
-    plaintext
-
-    Copy code
 
     `DB_NAME=database_name
     DB_USER=user
@@ -40,9 +34,6 @@ cd postgresql-ppc64le`
 
 1.  Build the Docker image using the provided Dockerfile:
 
-    bash
-
-    Copy code
 
     `docker build -t postgresql-ppc64le .`
 
@@ -50,9 +41,6 @@ cd postgresql-ppc64le`
 
 1.  Run the Docker container:
 
-    bash
-
-    Copy code
 
     `docker run -d -p 5000:5000 --env-file .env --name web postgresql-ppc64le`
 
@@ -69,9 +57,6 @@ cd postgresql-ppc64le`
 
 1.  If you need to stop or remove the container at any point, you can use the following commands:
 
-    bash
-
-    Copy code
 
     `docker stop web  # Stop the container
     docker rm web    # Remove the container`
@@ -83,42 +68,27 @@ Installation and Configuration of PostgreSQL on CentOS 9
 
 ### Step 1: Install PostgreSQL
 
-bash
-
-Copy code
 
 `sudo dnf install postgresql-server postgresql-contrib -y`
 
 ### Step 2: Modify the pg_hba.conf File
 
-bash
-
-Copy code
 
 `sudo vi /var/lib/pgsql/data/pg_hba.conf`
 
 Add the following line under `IPv4 local connections:` and comment out the previous line:
 
-plaintext
-
-Copy code
 
 `host    all             all             0.0.0.0/0            md5
 #host    all             all             127.0.0.1/32            ident`
 
 ### Step 3: Change the postgres User Password
 
-bash
-
-Copy code
 
 `sudo passwd postgres`
 
 ### Step 4: Restart PostgreSQL
 
-bash
-
-Copy code
 
 `sudo systemctl restart postgresql`
 
@@ -128,66 +98,42 @@ Copy code
 
 2.  Extract the file:
 
-    bash
-
-    Copy code
 
     `tar -xvf dvdrental.tar.gz`
 
 3.  Enter the PostgreSQL console as the postgres user:
 
-    bash
-
-    Copy code
 
     `sudo -i -u postgres`
 
 4.  Create a new database called dvdrental:
 
-    bash
-
-    Copy code
 
     `createdb dvdrental`
 
 5.  Restore the backup file into the dvdrental database:
 
-    bash
-
-    Copy code
 
     `pg_restore -U postgres -d dvdrental dvdrental.tar`
 
 6.  Exit the PostgreSQL console:
 
-    bash
-
-    Copy code
 
     `\q`
 
 ### Step 6: Configure Firewalld
 
-bash
-
-Copy code
 
 `sudo firewall-cmd --permanent --add-port=5432/tcp
 sudo firewall-cmd --reload`
 
 ### Step 7: Configure SELinux
 
-bash
-
-Copy code
 
 `sudo setsebool -P httpd_can_network_connect_db 1`
 
 ### Step 8: Start and Enable PostgreSQL
 
-bash
-
-Copy code
 
 `sudo systemctl start postgresql
 sudo systemctl enable postgresql`
