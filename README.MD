@@ -1,132 +1,193 @@
-# Demo DB PostgreSQL - Migracion desde x86 a IBM Power
-R
-Este repositorio contiene una aplicación Flask que utiliza Docker para su ejecución. La aplicación permite gestionar direcciones y realizar consultas a una base de datos PostgreSQL x86 y luego a la DB PostgreSQL en IBM Power.
+Demo DB PostgreSQL - Migration from x86 to IBM Power
+====================================================
 
-## Requisitos
+This repository contains a Flask application that uses Docker for its execution. The application allows managing addresses and querying a PostgreSQL x86 database and then the PostgreSQL database on IBM Power.
 
-- Docker instalado en tu sistema.
+Requirements
+------------
 
-## Instrucciones de Uso
+-   Docker installed on your system.
 
-### Paso 1: Clonar el Repositorio
+Usage Instructions
+------------------
 
-Clona este repositorio en tu máquina local:
+### Step 1: Clone the Repository
 
-```bash
-git clone https://github.com/machina13/postgresql-ppc64le
-cd postgresql-ppc64le
-```
+Clone this repository to your local machine:
 
-### Paso 2: Configurar Variables de Entorno
+bash
 
-1. Crea un archivo `.env` en la raíz del proyecto con la configuración de tu base de datos PostgreSQL. Sustituye los valores de ejemplo con los adecuados para tu entorno:
+Copy code
 
-    ```plaintext
-    DB_NAME=nombre_base_datos
-    DB_USER=usuario
+`git clone https://github.com/machina13/postgresql-ppc64le
+cd postgresql-ppc64le`
+
+### Step 2: Configure Environment Variables
+
+1.  Create a `.env` file in the root of the project with your PostgreSQL database configuration. Replace the example values with those appropriate for your environment:
+
+    plaintext
+
+    Copy code
+
+    `DB_NAME=database_name
+    DB_USER=user
     DB_PASSWORD=password
-    DB_HOST=nombre_host
-    DB_PORT=5432
-    ```
+    DB_HOST=host_name
+    DB_PORT=5432`
 
-### Paso 3: Construir la Imagen Docker
+### Step 3: Build the Docker Image
 
-1. Construye la imagen Docker utilizando el Dockerfile proporcionado:
+1.  Build the Docker image using the provided Dockerfile:
 
-    ```bash
-    docker build -t postgresql-ppc64le .
-    ```
+    bash
 
-### Paso 4: Ejecutar el Contenedor Docker
+    Copy code
 
-1. Ejecuta el contenedor Docker:
+    `docker build -t postgresql-ppc64le .`
 
-    ```bash
-    docker run -d -p 5000:5000 --env-file .env --name web postgresql-ppc64le
-    ```
+### Step 4: Run the Docker Container
 
-    - `-d`: Ejecuta el contenedor en segundo plano.
-    - `-p 5000:5000`: Mapea el puerto 5000 del contenedor al puerto 5000 del host.
-    - `--env-file .env`: Utiliza las variables de entorno definidas en el archivo `.env`.
-    - `--name web`: Asigna un nombre al contenedor.
+1.  Run the Docker container:
 
-### Paso 5: Acceder a la Aplicación
+    bash
 
-1. Abre un navegador web y accede a la aplicación Flask en `http://ip:5000`.
+    Copy code
 
-### Detener y Eliminar el Contenedor
+    `docker run -d -p 5000:5000 --env-file .env --name web postgresql-ppc64le`
 
-1. Si necesitas detener o eliminar el contenedor en algún momento, puedes usar los siguientes comandos:
+    -   `-d`: Run the container in the background.
+    -   `-p 5000:5000`: Map port 5000 of the container to port 5000 of the host.
+    -   `--env-file .env`: Use the environment variables defined in the `.env` file.
+    -   `--name web`: Assign a name to the container.
 
-    ```bash
-    docker stop web  # Detener el contenedor
-    docker rm web    # Eliminar el contenedor
-    ```
+### Step 5: Access the Application
 
-    Donde `web` es el nombre que le diste a tu contenedor al ejecutarlo.
+1.  Open a web browser and access the Flask application at `http://ip:5000`.
 
+### Stop and Remove the Container
 
+1.  If you need to stop or remove the container at any point, you can use the following commands:
 
-    ## Instalación y Configuración de PostgreSQL en CentOS 9
+    bash
 
-    ### Paso 1: Instalar PostgreSQL
+    Copy code
 
-    ```sudo dnf install postgresql-server postgresql-contrib -y```
+    `docker stop web  # Stop the container
+    docker rm web    # Remove the container`
 
-    ### Paso 2: Modificar el archivo pg_hba.conf
+    Where `web` is the name you assigned to your container when you ran it.
 
-    ```sudo vi /var/lib/pgsql/data/pg_hba.conf```
+Installation and Configuration of PostgreSQL on CentOS 9
+--------------------------------------------------------
 
-    Agregar la siguiente línea bajo ```IPv4 local connections:``` y comentar la línea anterior:
+### Step 1: Install PostgreSQL
 
-    ```host    all             all             0.0.0.0/0            md5```
+bash
 
-    ```#host    all             all             127.0.0.1/32            ident```
+Copy code
 
-    ### Paso 3: Cambiar la contraseña del usuario postgres
+`sudo dnf install postgresql-server postgresql-contrib -y`
 
-    ```sudo passwd postgres```
+### Step 2: Modify the pg_hba.conf File
 
-    ### Paso 4: Reiniciar PostgreSQL
+bash
 
-    ```sudo systemctl restart postgresql```
+Copy code
 
-    ### Paso 5: Importar la base de datos dvdrental
+`sudo vi /var/lib/pgsql/data/pg_hba.conf`
 
-    1. Descarga el archivo dvdrental.tar.gz desde [aquí](https://www.postgresqltutorial.com/wp-content/uploads/2019/05/dvdrental.zip) y cópialo a tu servidor CentOS.
+Add the following line under `IPv4 local connections:` and comment out the previous line:
 
-    2. Descomprime el archivo:
+plaintext
 
-    ```tar -xvf dvdrental.tar.gz```
+Copy code
 
-    3. Ingresa a la consola de PostgreSQL como el usuario postgres:
+`host    all             all             0.0.0.0/0            md5
+#host    all             all             127.0.0.1/32            ident`
 
-    ```sudo -i -u postgres```
+### Step 3: Change the postgres User Password
 
-    4. Crea una nueva base de datos llamada dvdrental:
+bash
 
-    ```createdb dvdrental```
+Copy code
 
-    5. Restaura el archivo de respaldo dentro de la base de datos dvdrental:
+`sudo passwd postgres`
 
-    ```pg_restore -U postgres -d dvdrental dvdrental.tar```
+### Step 4: Restart PostgreSQL
 
-    6. Sal de la consola de PostgreSQL:
+bash
 
-    ```\q```
+Copy code
 
-    ### Paso 6: Configurar Firewalld
+`sudo systemctl restart postgresql`
 
-    ```sudo firewall-cmd --permanent --add-port=5432/tcp```
+### Step 5: Import the dvdrental Database
 
-    ```sudo firewall-cmd --reload```
+1.  Download the dvdrental.tar.gz file from [here](https://www.postgresqltutorial.com/wp-content/uploads/2019/05/dvdrental.zip) and copy it to your CentOS server.
 
-    ### Paso 7: Configurar SELinux
+2.  Extract the file:
 
-    ```sudo setsebool -P httpd_can_network_connect_db 1```
+    bash
 
-    ### Paso 8: Iniciar y habilitar PostgreSQL
+    Copy code
 
-    ```sudo systemctl start postgresql```
+    `tar -xvf dvdrental.tar.gz`
 
-    ```sudo systemctl enable postgresql```
+3.  Enter the PostgreSQL console as the postgres user:
+
+    bash
+
+    Copy code
+
+    `sudo -i -u postgres`
+
+4.  Create a new database called dvdrental:
+
+    bash
+
+    Copy code
+
+    `createdb dvdrental`
+
+5.  Restore the backup file into the dvdrental database:
+
+    bash
+
+    Copy code
+
+    `pg_restore -U postgres -d dvdrental dvdrental.tar`
+
+6.  Exit the PostgreSQL console:
+
+    bash
+
+    Copy code
+
+    `\q`
+
+### Step 6: Configure Firewalld
+
+bash
+
+Copy code
+
+`sudo firewall-cmd --permanent --add-port=5432/tcp
+sudo firewall-cmd --reload`
+
+### Step 7: Configure SELinux
+
+bash
+
+Copy code
+
+`sudo setsebool -P httpd_can_network_connect_db 1`
+
+### Step 8: Start and Enable PostgreSQL
+
+bash
+
+Copy code
+
+`sudo systemctl start postgresql
+sudo systemctl enable postgresql`
