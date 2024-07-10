@@ -1,24 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Gestión de Direcciones</title>
+    <title>Demo PostgreSQL - IBM Power10</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <style>
         /* Añade estilos personalizados si es necesario */
+        .outlined-square {
+            border: 2px solid #007bff;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="mt-4">Gestión de Direcciones</h1>
+        <h1 class="mt-4">Demo PostgreSQL on IBM Power10</h1>
 
         <!-- Formulario para ingresar la dirección IP del servidor de base de datos -->
         <form action="/" method="POST" class="mt-4">
             <div class="form-group">
-                <label for="db_host">Dirección IP del Servidor de Base de Datos:</label>
+                <label for="db_host">IP Server DB PostgreSQL:</label>
                 <input type="text" id="db_host" name="db_host" class="form-control" required>
             </div>
-            <button type="submit" class="btn btn-primary">Conectar al Servidor</button>
+            <button type="submit" class="btn btn-primary">Connect</button>
         </form>
 
         <hr class="my-4">
@@ -26,73 +31,58 @@
         {% if db_info %}
         <!-- Información del Servidor -->
         <div class="card my-4">
-            <h5 class="card-header">Información del Servidor</h5>
+            <h5 class="card-header">Info Server DB</h5>
             <div class="card-body">
                 <p><strong>IP Address:</strong> {{ db_info.ip_address }}</p>
-                <p><strong>Arquitectura:</strong> {{ db_info.cpu_architecture }}</p>
-                <p><strong>Detalle:</strong> {{ db_info.os_version }}</p>
+                <p><strong>Arch:</strong> {{ db_info.cpu_architecture }}</p>
+                <p><strong>Details:</strong> {{ db_info.os_version }}</p>
             </div>
         </div>
         {% endif %}
 
         <!-- Formulario para consultar direcciones -->
         <form action="/consultar" method="POST">
-            <button type="submit" class="btn btn-success mb-4">Consultar</button>
+            <button type="submit" class="btn btn-success mb-4">Query</button>
         </form>
 
         <hr class="my-4">
 
-        <!-- Botón para abrir el modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agregarDireccionModal">
-            Agregar Dirección
-        </button>
-
-        <!-- Modal para agregar dirección -->
-        <div class="modal fade" id="agregarDireccionModal" tabindex="-1" aria-labelledby="agregarDireccionModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="agregarDireccionModalLabel">Agregar Dirección</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="/agregar" method="POST">
-                            <div class="form-group">
-                                <label for="address">Dirección:</label>
-                                <input type="text" id="address" name="address" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="address2">Dirección 2:</label>
-                                <input type="text" id="address2" name="address2" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="district">Distrito:</label>
-                                <input type="text" id="district" name="district" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="city_id">ID de Ciudad:</label>
-                                <input type="text" id="city_id" name="city_id" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="postal_code">Código Postal:</label>
-                                <input type="text" id="postal_code" name="postal_code" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Teléfono:</label>
-                                <input type="text" id="phone" name="phone" class="form-control" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Agregar</button>
-                        </form>
-                    </div>
+        <!-- Cuadrado circunscrito con contorno -->
+        <div class="outlined-square">
+            <!-- Formulario para agregar dirección -->
+            <h3 class="mt-4">Insert</h3>
+            <form action="/agregar" method="POST" class="px-4 py-3">
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" name="address" class="form-control" required>
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="address2">Address 2:</label>
+                    <input type="text" id="address2" name="address2" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="district">District:</label>
+                    <input type="text" id="district" name="district" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="city_id">City ID:</label>
+                    <input type="text" id="city_id" name="city_id" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="postal_code">Postal Code:</label>
+                    <input type="text" id="postal_code" name="postal_code" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input type="text" id="phone" name="phone" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Insert</button>
+            </form>
         </div>
 
         <!-- Resultados de la consulta -->
         {% if query %}
-        <h3 class="mt-4">Resultados de la Consulta</h3>
+        <h3 class="mt-4">Result Query</h3>
         <table class="table table-bordered mt-3">
             <thead class="thead-dark">
                 <tr>
