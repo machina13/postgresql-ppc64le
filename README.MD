@@ -16,8 +16,10 @@ Usage Instructions
 Clone this repository to your local machine:
 
 
-`git clone https://github.com/machina13/postgresql-ppc64le
-cd postgresql-ppc64le`
+```
+git clone https://github.com/machina13/postgresql-ppc64le
+cd postgresql-ppc64le
+```
 
 ### Step 2: Configure Environment Variables
 
@@ -41,11 +43,12 @@ cd postgresql-ppc64le`
 
 1.  Run the Docker container:
 
+```
+docker run -d -p 5000:5000 --env-file .env --name web postgresql-ppc64le
+```
 
-    `docker run -d -p 5000:5000 --env-file .env --name web postgresql-ppc64le`
-
-    -   `-d`: Run the container in the background.
-    -   `-p 5000:5000`: Map port 5000 of the container to port 5000 of the host.
+    -   -d: Run the container in the background.
+    -   -p 5000:5000: Map port 5000 of the container to port 5000 of the host.
     -   `--env-file .env`: Use the environment variables defined in the `.env` file.
     -   `--name web`: Assign a name to the container.
 
@@ -57,11 +60,12 @@ cd postgresql-ppc64le`
 
 1.  If you need to stop or remove the container at any point, you can use the following commands:
 
+```
+docker stop web  # Stop the container
+docker rm web    # Remove the container
+```
 
-    `docker stop web  # Stop the container
-    docker rm web    # Remove the container`
-
-    Where `web` is the name you assigned to your container when you ran it.
+Where `web` is the name you assigned to your container when you ran it.
 
 Installation and Configuration of PostgreSQL on CentOS 9
 --------------------------------------------------------
@@ -79,8 +83,10 @@ Installation and Configuration of PostgreSQL on CentOS 9
 Add the following line under `IPv4 local connections:` and comment out the previous line:
 
 
-`host    all             all             0.0.0.0/0            md5
-#host    all             all             127.0.0.1/32            ident`
+```
+host    all             all             0.0.0.0/0            md5
+#host    all             all             127.0.0.1/32            ident
+```
 
 ### Step 3: Change the postgres User Password
 
@@ -124,16 +130,20 @@ Add the following line under `IPv4 local connections:` and comment out the previ
 ### Step 6: Configure Firewalld
 
 
-`sudo firewall-cmd --permanent --add-port=5432/tcp
-sudo firewall-cmd --reload`
+```
+sudo firewall-cmd --permanent --add-port=5432/tcp
+sudo firewall-cmd --reload
+```
 
 ### Step 7: Configure SELinux
 
-
-`sudo setsebool -P httpd_can_network_connect_db 1`
+```
+sudo setsebool -P httpd_can_network_connect_db 1
+```
 
 ### Step 8: Start and Enable PostgreSQL
 
-
-`sudo systemctl start postgresql
-sudo systemctl enable postgresql`
+```
+sudo systemctl start postgresql
+sudo systemctl enable postgresql
+```
