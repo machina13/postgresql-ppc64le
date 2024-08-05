@@ -12,6 +12,43 @@
             margin-bottom: 20px;
         }
     </style>
+    <script>
+        function validateForm() {
+            const address = document.getElementById('address').value;
+            const address2 = document.getElementById('address2').value;
+            const district = document.getElementById('district').value;
+            const cityId = document.getElementById('city_id').value;
+            const postalCode = document.getElementById('postal_code').value;
+            const phone = document.getElementById('phone').value;
+
+            if (address.length > 10 || !/^[a-zA-Z]*$/.test(address)) {
+                alert("Address must be text only and no more than 10 characters");
+                return false;
+            }
+            if (address2.length > 10 || !/^[a-zA-Z]*$/.test(address2)) {
+                alert("Address 2 must be text only and no more than 10 characters");
+                return false;
+            }
+            if (district.length > 10 || !/^[a-zA-Z]*$/.test(district)) {
+                alert("District must be text only and no more than 10 characters");
+                return false;
+            }
+            if (!/^\d{3}$/.test(cityId)) {
+                alert("City ID must be exactly 3 digits");
+                return false;
+            }
+            if (!/^\d{3,5}$/.test(postalCode)) {
+                alert("Postal Code must be between 3 and 5 digits");
+                return false;
+            }
+            if (!/^\d{1,10}$/.test(phone)) {
+                alert("Phone must be digits only and no more than 10 digits");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -71,7 +108,7 @@
         <div class="outlined-square">
             <!-- Formulario para agregar dirección -->
             <h3 class="mt-4">Insert</h3>
-            <form action="/agregar" method="POST" class="px-4 py-3">
+            <form action="/agregar" method="POST" class="px-4 py-3" onsubmit="return validateForm()">
                 <div class="form-group">
                     <label for="address">Address:</label>
                     <input type="text" id="address" name="address" class="form-control" required>
