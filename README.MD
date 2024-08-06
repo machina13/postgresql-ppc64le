@@ -6,7 +6,7 @@ This repository contains a Flask application that uses Docker for its execution.
 Architecture
 ------------
 
-![alt text](https://jumpshare.com/embed/gbJwBBlphmU9RV1GiEPw)
+![alt text](https://github.com/machina13/postgresql-ppc64le/blob/main/CPT2408061128-1237x544.gif)
 
 
 Requirements
