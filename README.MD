@@ -18,7 +18,9 @@ Architecture
 Requirements
 ------------
 
--   Docker installed on your system.
+-   1 server or VM on x86 architecture
+-   1 server or LPAR on IBM Power architecture
+-   1 VM with docker
 
 Usage Instructions
 ------------------
