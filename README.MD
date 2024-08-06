@@ -1,6 +1,12 @@
 Demo DB PostgreSQL - Migration from x86 to IBM Power
 ====================================================
 
+Project Overview
+------------
+This project demonstrates the migration of a PostgreSQL database from an x86 server to an IBM Power server. The objective is to showcase the seamless transfer of data and the compatibility between different architectures, highlighting the benefits and capabilities of IBM Power systems for database management. The following steps will guide you through the process of setting up the environment, performing the migration, and verifying the success of the transfer.
+
+Resume
+------------
 This repository contains a Flask application that uses Docker for its execution. The application allows managing addresses and querying a PostgreSQL x86 database and then the PostgreSQL database on IBM Power.
 
 Architecture
