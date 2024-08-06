@@ -6,7 +6,7 @@ This repository contains a Flask application that uses Docker for its execution.
 Architecture
 ------------
 
-![alt text](https://i.ibb.co/GFVn4nj/Screenshot-from-2024-08-06-11-08-49.png)
+![alt text](https://i.ibb.co/B4K8KbQ/CPT2408061128-1237x544.gif)
 
 
 Requirements
