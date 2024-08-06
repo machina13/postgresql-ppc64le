@@ -3,6 +3,12 @@ Demo DB PostgreSQL - Migration from x86 to IBM Power
 
 This repository contains a Flask application that uses Docker for its execution. The application allows managing addresses and querying a PostgreSQL x86 database and then the PostgreSQL database on IBM Power.
 
+Architecture
+------------
+
+![alt text](https://i.ibb.co/GFVn4nj/Screenshot-from-2024-08-06-11-08-49.png)
+
+
 Requirements
 ------------
 
